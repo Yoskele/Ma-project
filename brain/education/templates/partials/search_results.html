@@ -1,0 +1,16 @@
+{% if results %}
+<div class="container">
+    <ul class="list-group">
+        {% for lesson in results %}
+            <li class="list-group-item bg-list-card">
+                <a href="{% url 'lesson-detail' lesson.id %}">
+                    {{ lesson.title }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p class="">No results found.</p>
+{% endif %}
+</div>
+

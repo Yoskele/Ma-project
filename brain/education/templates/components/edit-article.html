@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content_wrapper %}
+
+<div class="container p-2 mt-5 big-paper-wrapper shadow-lg">
+
+    <div class="p-2 d-flex justify-content-between">
+        <h3 style="font-style:italic;">Edit article</h3>
+        <div class="">
+            <a href="{% url 'dashboard' %}" class="btn btn-info">
+                Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    <div class="p-2 form-group">
+        <form action="{% url 'edit-lesson' lesson.id%}" 
+            method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            {% block header %}
+                {{ form.media }} 
+            {% endblock %}
+            <div class="d-flex justify-content-between">
+                <button type="submit" value="edit-lesson" class="btn btn-success">Save Edits</button>
+                <div class="">
+                    <a href="{% url 'dashboard' %}" class="btn btn-info">
+                        Back to Dashboard
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock %}

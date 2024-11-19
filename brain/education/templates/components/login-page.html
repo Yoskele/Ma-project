@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content_wrapper %}
+
+    <style>
+        body, html {
+            height: 100%; /* Ensure the height covers the whole page */
+            margin: 0;
+            padding: 0;
+        }
+
+        .full-page-background {
+            background-size: cover; /* Make sure the background covers the full page */
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh; /* Full height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+        }
+
+        .form-title {
+            font-style: italic;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+    </style>
+
+<div class="full-page-background">
+    
+    <div class="card p-4 shadow-lg bg-transparent" style="margin-top: -50px;">
+
+        <h4 class="form-title m-0">Welcome to </h4>
+        <hr class="text-white">
+        <div class="d-flex align-items-center ">
+
+            <h5 class="form-title m-0">Login</h5>
+            
+
+        </div>
+
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+
+            <div class="mb-3 mt-2">
+                <label for="username" class="form-label">Username</label>
+                {{ form.username }}
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                {{ form.password }}
+            </div>
+
+            <button type="submit" class="btn btn-success w-100 mt-3">Login</button>
+
+        </form>
+
+        <img src="" style="width:120px;" class="mx-auto mt-2">
+
+    </div>
+
+</div> 
+
+
+
+
+
+
+
+
+
+
+    
+
+
+{% endblock %}
+
+
+
+

@@ -1,0 +1,9 @@
+<h1>{{ category.name }}</h1>
+<p>{{ category.description }}</p>
+
+<h2>Lessons</h2>
+{% for lesson in lessons %}
+    <div>
+        <h3><a href="{% url 'lesson_detail' lesson.id %}">{{ lesson.title }}</a></h3>
+    </div>
+{% endfor %}

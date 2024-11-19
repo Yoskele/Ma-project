@@ -1,0 +1,6 @@
+{% for category in categories %}
+<div>
+    <h2><a href="{% url 'category_detail' category.slug %}">{{ category.name }}</a></h2>
+    <p>{{ category.description }}</p>
+</div>
+{% endfor %}

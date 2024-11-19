@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Lessond Detail
+{% endblock %}
+
+{% block meta_description %}
+    Education Center home page
+{% endblock %}
+
+{% block meta_keywords %}
+   
+{% endblock %}
+
+
+{% block content_wrapper %}
+
+<div class="container p-2 mt-5 big-paper-wrapper shadow-lg">
+    <a href="{% url 'dashboard' %}" class="btn btn-info">
+        Back to Dashboard
+    </a>
+    <div class="container mt-2">
+        <b style="font-style:italic;">Lesson:</b>
+        <label style="font-style:italic;">{{ lesson.title }}</label>
+    </div>
+
+    <div class="container " id="test-ck">
+        <div>{{ lesson.content|safe }}</div>
+    </div>
+</div>
+
+
+<style>
+    #test-ck img{
+        width:100%;
+    }
+</style>
+
+
+
+
+
+
+
+<div class="container">
+    <div>Side Panel...</div>
+</div>
+
+<style>
+    
+    /* 
+    The order of postion.
+    padding-top
+    padding-right
+    padding-bottom
+    padding-left */
+    .ck-content h2{
+        font-size: 1.15rem;
+        padding-top:15px;
+    }
+    .ck-content h3{
+        font-size: 1.10rem;
+        padding-top:15px;
+    }
+    .ck-content h4{
+        font-size: 1rem;
+        padding-top:15px;
+    }
+    .ck-content p a{
+        color: black !important;
+        text-decoration: underline !important;
+        text-decoration-color: orange !important;
+    }
+    .ck-content p a:hover{
+        color: orange !important;
+        text-decoration: underline !important;
+        text-decoration-color: orange !important;
+    }
+    .ck-content li a{
+        color: black !important;
+        text-decoration: underline !important;
+        text-decoration-color: orange !important;
+    }
+    .ck-content li a:hover{
+        color: orange !important;
+        text-decoration: underline !important;
+        text-decoration-color: orange !important;
+    }
+    .ck-content {
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+    .ck-content span img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+    .ck-content img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+    .image-style-align-left {
+        float: left;
+        margin-right: 10px;
+    }
+    .image-style-align-center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .image-style-align-right {
+        float: right;
+        margin-left: 10px;
+    }
+    /* CSS styles for the blockquote */
+    blockquote.styled {
+        width: 90%;
+        margin: 10px auto;
+        background-color: lightgray;
+        border-radius: 20px;
+        opacity: 0.8;
+        padding: 20px; /* Add padding for visual separation */
+    }
+</style>
+<script>
+    document.querySelectorAll('oembed[url]').forEach(element => {
+        const url = element.getAttribute('url');
+        let iframe = document.createElement('iframe');
+        iframe.className = 'my-frame mx-auto d-block';
+        if (url.includes('youtube.com') || url.includes('youtu.be')) {
+            const videoId = url.split('v=')[1]?.split('&')[0] || url.split('.be/')[1];
+            iframe.src = `https://www.youtube.com/embed/${videoId}`;
+            iframe.width = '560';
+            iframe.height = '315';
+            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+            iframe.allowFullscreen = true;
+        } else if (url.includes('twitter.com')) {
+            // Handling Twitter embedding using iframe is not straightforward; you might need to use Twitter's embed code
+            iframe = document.createElement('blockquote');
+            iframe.className = 'twitter-tweet';
+            iframe.innerHTML = `<a href="${url}"></a>`;
+            // Load Twitter's widgets.js script to render the tweet
+            const script = document.createElement('script');
+            script.setAttribute('src', 'https://platform.twitter.com/widgets.js');
+            document.body.appendChild(script);
+        }
+        const figure = element.parentElement;
+        figure.innerHTML = '';
+        figure.appendChild(iframe);
+    });
+</script>
+   <style>
+    .twitter-tweet {
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+    
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}
+

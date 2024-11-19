@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content_wrapper %}
+
+<div class="container p-2 my-5 big-paper-wrapper shadow-lg">
+
+    <div class="p-2 d-flex justify-content-between">
+        <h3 style="font-style:italic;">Add Lesson</h3>
+        <div>
+            <a href="{% url 'dashboard' %}" class="btn btn-info">
+                Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <form method="POST" action="{% url 'add-lesson' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% block header %}
+                {{ form.media }} 
+            {% endblock %}
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-success">Save Lesson</button>
+                <div>
+                    <a href="{% url 'dashboard' %}" class="btn btn-info">Back to Dashboard</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+
+{% endblock %}

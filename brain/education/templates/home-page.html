@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Education home page
+{% endblock %}
+
+{% block meta_description %}
+    Education Center home page
+{% endblock %}
+
+{% block meta_keywords %}
+   
+{% endblock %}
+
+
+
+
+{% block content_wrapper %}
+{% include 'components/sidebar.html' %}
+
+{% include 'components/search.html' %}
+
+<div class="container p-2 mt-5 big-paper-wrapper shadow-lg">
+
+    <div class="d-flex justify-content-between">
+        <div class="container mt-2">
+            <b style="font-style:italic;">Education Center</b>
+            <label style="font-style:italic;">Pick a cource</label>
+        </div>
+        <a href="{% url 'add-lesson' %}" class="btn btn-danger w-25 my-4"> Add Lesson </a>
+    </div>
+    <div class="container">
+        <ul class="list-group mb-5">
+            {% for lesson in lessons%}
+                <li class="list-group-item bg-list-card d-flex justify-content-between align-items-center"> {{lesson.title}} 
+                    <div>
+                        <a href="{% url 'lesson-detail' lesson.id %}" class="btn btn-secondary my-2">View Lesson</a>
+                        <a href="{% url 'delete-lesson' lesson.id %}" class="btn btn-danger my-2">Delete Lesson</a>
+                        <a href="{% url 'edit-lesson' lesson.id %}" class="btn btn-success my-2">Edit Lesson</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</div>
+
+
+    
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}
+
