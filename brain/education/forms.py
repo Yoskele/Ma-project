@@ -1,5 +1,5 @@
 from django import forms
-from .models import Lesson, Category
+from .models import Category, Course, Lesson
 from django.forms.widgets import DateTimeInput
 from django_ckeditor_5.widgets import CKEditor5Widget
 
@@ -20,15 +20,15 @@ class LoginForm(forms.Form):
 
 
 class CreateLessonForm(forms.ModelForm):
-    category = forms.ModelChoiceField(
-        queryset=Category.objects.all(),
+    course = forms.ModelChoiceField(
+        queryset=Course.objects.all(),
         widget=forms.Select(attrs={'class': 'form-control'}),
         required=True
     )
 
     class Meta:
         model = Lesson
-        fields = ('slug', 'title', 'content', 'category', 'is_published')
+        fields = ('slug', 'title', 'content', 'course', 'is_published')
         labels = {
             'content': 'Please write content for the lesson...',
         }

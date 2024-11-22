@@ -22,12 +22,21 @@
 
 <div class="container p-2 mt-5 big-paper-wrapper shadow-lg">
 
+    <div class="my-4">
+        <a href="{% url 'add-lesson' %}" class="btn btn-success">
+            Create user
+        </a>
+        <a href="{% url 'add-lesson' %}" class="btn btn-success">
+            Add Lesson
+        </a>
+    </div>
+
+
     <div class="d-flex justify-content-between">
         <div class="container mt-2">
             <b style="font-style:italic;">Education Center</b>
             <label style="font-style:italic;">Pick a cource</label>
         </div>
-        <a href="{% url 'add-lesson' %}" class="btn btn-danger w-25 my-4"> Add Lesson </a>
     </div>
     <div class="container">
         <ul class="list-group mb-5">

@@ -3,7 +3,37 @@ from django.contrib import messages
 from .forms import LoginForm, CreateLessonForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .models import Category, Lesson
+from .models import Category, Course, Lesson
+
+
+
+
+
+from bs4 import BeautifulSoup
+
+def generate_toc(lesson_content):
+    soup = BeautifulSoup(lesson_content, 'html.parser')
+    toc = []
+
+    # Extract headings (h1, h2, h3, etc.)
+    for heading in soup.find_all(['h1', 'h2', 'h3']):
+        toc.append({
+            'level': heading.name,  # e.g., 'h1', 'h2'
+            'text': heading.text.strip(),
+            'id': heading.get('id') or heading.text.strip().replace(' ', '-').lower()
+        })
+        # Add IDs to headings if they do not already have one
+        heading['id'] = toc[-1]['id']
+
+    # Return the modified content and TOC
+    return str(soup), toc
+
+
+
+
+
+
+
 
 @login_required
 def category_list(request):
@@ -20,7 +50,9 @@ def category_detail(request, slug):
 @login_required
 def lesson_detail(request, id):
     lesson = get_object_or_404(Lesson, id=id, is_published=True)
-    return render(request, 'components/lesson_detail.html', {'lesson': lesson})
+    updated_content, toc = generate_toc(lesson.content)  # Use the function above
+    lesson.content = updated_content  # Update the content to include IDs
+    return render(request, 'components/lesson_detail.html', {'lesson': lesson, 'toc': toc})
 
 @login_required
 def dashboard(request):

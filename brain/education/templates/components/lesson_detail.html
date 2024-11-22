@@ -16,91 +16,71 @@
 {% block content_wrapper %}
 
 <div class="container p-2 mt-5 big-paper-wrapper shadow-lg">
-    <a href="{% url 'dashboard' %}" class="btn btn-info">
-        Back to Dashboard
-    </a>
+
+    <div class="lesson-detail-navbar">
+        <a href="{% url 'dashboard' %}" class="btn btn-info">
+            Back to Dashboard
+        </a>
+        <a href="{% url 'dashboard' %}" class="btn btn-warning">
+            Mark as Finished
+        </a>
+        <a href="{% url 'dashboard' %}" class="btn btn-success">
+            Next Page
+        </a>
+    </div>
+
     <div class="container mt-2">
         <b style="font-style:italic;">Lesson:</b>
         <label style="font-style:italic;">{{ lesson.title }}</label>
     </div>
 
-    <div class="container " id="test-ck">
-        <div>{{ lesson.content|safe }}</div>
+    <div class="container-fluid">
+        <!-- Main Wrapper -->
+        <div class="row">
+            <!-- Main Content -->
+            <div class="col-12 col-md-8 p-3" id="test-ck">
+                {{ lesson.content|safe }}
+            </div>
+            <!-- Sidebar --> 
+            <div class="col-12 col-md-4 p-3">
+                <h5>Table of Contents</h5>
+                <ul class="list-unstyled">
+                    {% for item in toc %}
+                        <li class="ms-{{ item.level|slice:'1' }}"> <!-- Adjust indentation by heading level -->
+                            <a href="#{{ item.id }}">{{ item.text }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        
     </div>
+    
 </div>
 
 
 <style>
-    #test-ck img{
-        width:100%;
-    }
+#test-ck img {
+    max-width: 100%; /* Ensures images do not overflow the container */
+    height: auto; /* Maintains aspect ratio */
+    display: block; /* Prevents inline image spacing issues */
+}
+
+.list-unstyled a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.list-unstyled a:hover {
+    text-decoration: underline;
+}
+
+
 </style>
 
 
-
-
-
-
-
-<div class="container">
-    <div>Side Panel...</div>
-</div>
-
 <style>
-    
-    /* 
-    The order of postion.
-    padding-top
-    padding-right
-    padding-bottom
-    padding-left */
-    .ck-content h2{
-        font-size: 1.15rem;
-        padding-top:15px;
-    }
-    .ck-content h3{
-        font-size: 1.10rem;
-        padding-top:15px;
-    }
-    .ck-content h4{
-        font-size: 1rem;
-        padding-top:15px;
-    }
-    .ck-content p a{
-        color: black !important;
-        text-decoration: underline !important;
-        text-decoration-color: orange !important;
-    }
-    .ck-content p a:hover{
-        color: orange !important;
-        text-decoration: underline !important;
-        text-decoration-color: orange !important;
-    }
-    .ck-content li a{
-        color: black !important;
-        text-decoration: underline !important;
-        text-decoration-color: orange !important;
-    }
-    .ck-content li a:hover{
-        color: orange !important;
-        text-decoration: underline !important;
-        text-decoration-color: orange !important;
-    }
-    .ck-content {
-        width: 100%;
-        position: relative;
-        overflow: hidden;
-    }
-    .ck-content span img {
-        max-width: 100%;
-        height: auto;
-        display: block;
-    }
-    .ck-content img {
-        max-width: 100%;
-        height: auto;
-        display: block;
-    }
+
     .image-style-align-left {
         float: left;
         margin-right: 10px;
