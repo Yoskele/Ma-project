@@ -23,9 +23,11 @@ Education Center home page
 <!-- User Management Panel (Superuser Only) -->
 {% if request.user.is_superuser %}
 <div class="container p-2 mt-5 big-paper-wrapper shadow-lg">
-    <a href="{% url 'create_user' %}" class="btn btn-success my-4">
-        Create User
-    </a>
+    {% if request.user.is_superuser %}
+        <a href="{% url 'create_user' %}" class="btn btn-success my-4">
+            Create User
+        </a>
+    {% endif %}
     <div class="d-flex justify-content-between">
         <div class="container mt-2">
             <label style="font-style:italic;">Pick a user</label>
@@ -38,8 +40,10 @@ Education Center home page
                 {{ user.user.username }} - {{ user.user.email }}
                 <div>
                     <a href="{% url 'view-user' user.user.id %}" class="btn btn-secondary my-2">View User</a>
-                    <a href="{% url 'delete-user' user.user.id %}" class="btn btn-danger my-2">Delete User</a>
-                    <a href="{% url 'edit-user' user.user.id %}" class="btn btn-success my-2">Edit User</a>
+                    {% if request.user.is_superuser %}
+                        <a href="{% url 'delete-user' user.user.id %}" class="btn btn-danger my-2">Delete User</a>
+                        <a href="{% url 'edit-user' user.user.id %}" class="btn btn-success my-2">Edit User</a>
+                    {% endif %}
                 </div>
             </li>
             {% endfor %}
@@ -52,11 +56,13 @@ Education Center home page
 
 <!-- Category panel -->
 <div class="container p-2 mt-5 big-paper-wrapper shadow-lg">
-    <div class="my-4">
-        <a href="{% url 'add-lesson' %}" class="btn btn-success">
-            Create category
-        </a>
-    </div>
+    {% if request.user.is_superuser %}
+        <div class="my-4">
+            <a href="{% url 'add-lesson' %}" class="btn btn-success">
+                Create category
+            </a>
+        </div>
+    {% endif %}
     <div class="d-flex justify-content-between">
         <div class="container mt-2">
             <label style="font-style:italic;">Pick a category</label>
@@ -69,8 +75,10 @@ Education Center home page
                 {{ category.name }}
                 <div>
                     <a href="{% url 'view-category' category.id %}" class="btn btn-secondary my-2">View category</a>
-                    <a href="{% url 'delete-category' category.id %}" class="btn btn-danger my-2">Delete category</a>
-                    <a href="{% url 'edit-category' category.id %}" class="btn btn-success my-2">Edit category</a>
+                    {% if request.user.is_superuser %}
+                        <a href="{% url 'delete-category' category.id %}" class="btn btn-danger my-2">Delete category</a>
+                        <a href="{% url 'edit-category' category.id %}" class="btn btn-success my-2">Edit category</a>
+                    {% endif %}
                 </div>
             </li>
             {% endfor %}
@@ -80,11 +88,13 @@ Education Center home page
 
 <!-- Cource panel -->
 <div class="container p-2 mt-5 big-paper-wrapper shadow-lg">
-    <div class="my-4">
-        <a href="{% url 'add-lesson' %}" class="btn btn-success">
-            Create cource
-        </a>
-    </div>
+    {% if request.user.is_superuser %}
+        <div class="my-4">
+            <a href="{% url 'add-lesson' %}" class="btn btn-success">
+                Create cource
+            </a>
+        </div>
+    {% endif %}
     <div class="d-flex justify-content-between">
         <div class="container mt-2">
             <label style="font-style:italic;">Pick a cource</label>
@@ -96,8 +106,10 @@ Education Center home page
             <li class="list-group-item bg-list-card d-flex justify-content-between align-items-center"> {{course.title}}
                 <div>
                     <a href="{% url 'view-course' course.id %}" class="btn btn-secondary my-2">View course</a>
-                    <a href="{% url 'delete-course' course.id %}" class="btn btn-danger my-2">Delete course</a>
-                    <a href="{% url 'edit-course' course.id %}" class="btn btn-success my-2">Edit course</a>
+                    {% if request.user.is_superuser %}
+                        <a href="{% url 'delete-course' course.id %}" class="btn btn-danger my-2">Delete course</a>
+                        <a href="{% url 'edit-course' course.id %}" class="btn btn-success my-2">Edit course</a>
+                    {% endif %}
                 </div>
             </li>
             {% endfor %}
@@ -107,11 +119,13 @@ Education Center home page
 
 <!-- Lesson panel -->
 <div class="container p-2 mt-5 big-paper-wrapper shadow-lg">
-    <div class="my-4">
-        <a href="{% url 'add-lesson' %}" class="btn btn-success">
-            Add Lesson
-        </a>
-    </div>
+    {% if request.user.is_superuser %}
+        <div class="my-4">
+            <a href="{% url 'add-lesson' %}" class="btn btn-success">
+                Add Lesson
+            </a>
+        </div>
+    {% endif %}
     <div class="d-flex justify-content-between">
         <div class="container mt-2">
             <label style="font-style:italic;">Pick a lesson</label>
@@ -123,8 +137,10 @@ Education Center home page
             <li class="list-group-item bg-list-card d-flex justify-content-between align-items-center"> {{lesson.title}}
                 <div>
                     <a href="{% url 'lesson-detail' lesson.id %}" class="btn btn-secondary my-2">View Lesson</a>
-                    <a href="{% url 'delete-lesson' lesson.id %}" class="btn btn-danger my-2">Delete Lesson</a>
-                    <a href="{% url 'edit-lesson' lesson.id %}" class="btn btn-success my-2">Edit Lesson</a>
+                    {% if request.user.is_superuser %}
+                        <a href="{% url 'delete-lesson' lesson.id %}" class="btn btn-danger my-2">Delete Lesson</a>
+                        <a href="{% url 'edit-lesson' lesson.id %}" class="btn btn-success my-2">Edit Lesson</a>
+                    {% endif %}
                 </div>
             </li>
             {% endfor %}
@@ -132,7 +148,7 @@ Education Center home page
     </div>
 </div>
 
-
+<br>
 
 {% endblock %}
 
