@@ -17,23 +17,44 @@
 
 <div class="container p-2 mt-5 big-paper-wrapper shadow-lg">
 
-    <div class="lesson-detail-navbar">
-        <a href="{% url 'dashboard' %}" class="btn btn-info">
-            Back to Dashboard
-        </a>
-        <a href="{% url 'dashboard' %}" class="btn btn-warning">
-            Mark as Finished
-        </a>
-        <a href="{% url 'dashboard' %}" class="btn btn-success">
-            Next Page
-        </a>
+    <div class="container my-4">
+        <div class="row align-items-center">
+            <!-- Course Details -->
+            <div class="col-12 col-sm-6 mb-3 text-center text-sm-start">
+                <a href="{% url 'dashboard' %}" class="btn btn-info">
+                    Back to Dashboard
+                </a>
+                <b style="font-style:italic;" class="d-block mt-3">Course:</b>
+                <label style="font-style:italic;" class="d-block mb-3">{{ lesson.course.title }}</label>
+            </div>
+    
+            <!-- Action Buttons -->
+            <div class="col-12 col-sm-6 text-center">
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-end">
+                    <a href="{% url 'dashboard' %}" class="btn btn-info">
+                        Previous Page
+                    </a>
+                    <a href="{% url 'dashboard' %}" class="btn btn-warning">
+                        Mark as Finished
+                    </a>
+                    <a href="{% url 'dashboard' %}" class="btn btn-success">
+                        Next Page
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="container mt-1">
+        <div>
+            <b style="font-style:italic;">Lesson:</b>
+            <label style="font-style:italic;">{{ lesson.title }}</label>
+        </div>
     </div>
 
-    <div class="container mt-2">
-        <b style="font-style:italic;">Lesson:</b>
-        <label style="font-style:italic;">{{ lesson.title }}</label>
-    </div>
 
+    <hr>
     <div class="container-fluid">
         <!-- Main Wrapper -->
         <div class="row">
@@ -55,7 +76,18 @@
         </div>
         
     </div>
-    
+    <hr>
+    <div class="d-flex align-items-center justify-content-around my-4">
+        <a href="{% url 'dashboard' %}" class="btn btn-info">
+            Previous Page
+        </a>
+        <a href="{% url 'dashboard' %}" class="btn btn-warning">
+            Mark as Finished
+        </a>
+        <a href="{% url 'dashboard' %}" class="btn btn-success">
+            Next Page
+        </a>
+    </div>
 </div>
 
 

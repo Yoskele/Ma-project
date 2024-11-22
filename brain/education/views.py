@@ -1,9 +1,86 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .forms import LoginForm, CreateLessonForm
+from .forms import LoginForm, CreateUserForm, CreateLessonForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .models import Category, Course, Lesson
+from .models import Category, Course, Lesson, UserProfile
+
+
+@login_required
+def create_user(request):
+    if not request.user.is_superuser:  # Ensure only superusers can access this view
+        messages.error(request, "You do not have permission to create users.")
+        return redirect("dashboard")
+    print('if not.')
+    if request.method == "POST":
+        form = CreateUserForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = form.save()  # Save the user
+            UserProfile.objects.create(user=user)  # Create the UserProfile automatically
+            messages.success(request, f"User {user.username} created successfully!")
+            return redirect("dashboard")  # Redirect to the dashboard or another page
+    else:
+        form = CreateUserForm()
+
+    return render(request, "components/user/create-user.html", {"form": form})
+
+
+@login_required
+def view_user(request, slug):
+    return render(request, "components/user/view-user.html")
+
+@login_required
+def delete_user(request):
+    return render(request, "components/user/create-user.html", {"form": form})
+
+
+@login_required
+def edit_user(request):
+    return render(request, "components/user/edit-user.html", {"form": form})
+
+@login_required
+def edit_category(request):
+    return render(request, "components/create-category.html", {"form": form})
+
+
+@login_required
+def view_category(request):
+    return render(request, "components/view-category.html", {"form": form})
+
+@login_required
+def delete_category(request):
+    return render(request, "components/create-category.html", {"form": form})
+
+@login_required
+def edit_category(request):
+    return render(request, "components/create-category.html", {"form": form})
+
+
+
+@login_required
+def view_course(request):
+    return render(request, "components/view-course.html", {"form": form})
+
+@login_required
+def delete_course(request):
+    return render(request, "components/create-course.html", {"form": form})
+
+@login_required
+def edit_course(request):
+    return render(request, "components/create-course.html", {"form": form})
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -57,12 +134,19 @@ def lesson_detail(request, id):
 @login_required
 def dashboard(request):
     try:
+        categories = Category.objects.all().order_by('-created_at')
+        courses = Course.objects.all().order_by('-created_at')
         lessons = Lesson.objects.all().order_by('-created_at')
-        print('lessons: ', lessons)
+        users = None
+        if request.user.is_superuser:
+            users = UserProfile.objects.all().order_by('user')
     except Exception as e:
         print('Exception: ', e)
     context = {
+        'categories': categories,
+        'courses': courses,
         'lessons': lessons,
+        'users': users,
     }
     return render(request, 'home-page.html', context)
 

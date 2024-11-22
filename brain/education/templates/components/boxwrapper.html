@@ -1,0 +1,28 @@
+<div class="container p-2 mt-5 big-paper-wrapper shadow-lg">
+    {% if create_url %}
+    <div class="my-4">
+        <a href="{% url create_url %}" class="btn btn-success">
+            {{ create_text }}
+        </a>
+    </div>
+    {% endif %}
+    <div class="d-flex justify-content-between">
+        <div class="container mt-2">
+            <label style="font-style:italic;">{{ label_text }}</label>
+        </div>
+    </div>
+    <div class="container">
+        <ul class="list-group mb-5">
+            {% for item in items %}
+                <li class="list-group-item bg-list-card d-flex justify-content-between align-items-center">
+                    {{ item.title|default:item.name|default:item.user.username }}
+                    <div>
+                        <a href="{% url view_url item.id %}" class="btn btn-secondary my-2">View</a>
+                        <a href="{% url delete_url item.id %}" class="btn btn-danger my-2">Delete</a>
+                        <a href="{% url edit_url item.id %}" class="btn btn-success my-2">Edit</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

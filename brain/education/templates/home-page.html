@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Education home page
+Education home page
 {% endblock %}
 
 {% block meta_description %}
-    Education Center home page
+Education Center home page
 {% endblock %}
 
 {% block meta_keywords %}
-   
+
 {% endblock %}
 
 
@@ -20,44 +20,119 @@
 
 {% include 'components/search.html' %}
 
+<!-- Category panel -->
 <div class="container p-2 mt-5 big-paper-wrapper shadow-lg">
-
     <div class="my-4">
         <a href="{% url 'add-lesson' %}" class="btn btn-success">
-            Create user
-        </a>
-        <a href="{% url 'add-lesson' %}" class="btn btn-success">
-            Add Lesson
+            Create category
         </a>
     </div>
-
-
     <div class="d-flex justify-content-between">
         <div class="container mt-2">
-            <b style="font-style:italic;">Education Center</b>
+            <label style="font-style:italic;">Pick a category</label>
+        </div>
+    </div>
+    <div class="container">
+        <ul class="list-group mb-5">
+            {% for category in categories %}
+            <li class="list-group-item bg-list-card d-flex justify-content-between align-items-center">
+                {{ category.name }}
+                <div>
+                    <a href="{% url 'view-category' category.id %}" class="btn btn-secondary my-2">View category</a>
+                    <a href="{% url 'delete-category' category.id %}" class="btn btn-danger my-2">Delete category</a>
+                    <a href="{% url 'edit-category' category.id %}" class="btn btn-success my-2">Edit category</a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<!-- Cource panel -->
+<div class="container p-2 mt-5 big-paper-wrapper shadow-lg">
+    <div class="my-4">
+        <a href="{% url 'add-lesson' %}" class="btn btn-success">
+            Create cource
+        </a>
+    </div>
+    <div class="d-flex justify-content-between">
+        <div class="container mt-2">
             <label style="font-style:italic;">Pick a cource</label>
         </div>
     </div>
     <div class="container">
         <ul class="list-group mb-5">
+            {% for course in courses %}
+            <li class="list-group-item bg-list-card d-flex justify-content-between align-items-center"> {{course.title}}
+                <div>
+                    <a href="{% url 'view-course' course.id %}" class="btn btn-secondary my-2">View course</a>
+                    <a href="{% url 'delete-course' course.id %}" class="btn btn-danger my-2">Delete course</a>
+                    <a href="{% url 'edit-course' course.id %}" class="btn btn-success my-2">Edit course</a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<!-- Lesson panel -->
+<div class="container p-2 mt-5 big-paper-wrapper shadow-lg">
+    <div class="my-4">
+        <a href="{% url 'add-lesson' %}" class="btn btn-success">
+            Add Lesson
+        </a>
+    </div>
+    <div class="d-flex justify-content-between">
+        <div class="container mt-2">
+            <label style="font-style:italic;">Pick a lesson</label>
+        </div>
+    </div>
+    <div class="container">
+        <ul class="list-group mb-5">
             {% for lesson in lessons%}
-                <li class="list-group-item bg-list-card d-flex justify-content-between align-items-center"> {{lesson.title}} 
-                    <div>
-                        <a href="{% url 'lesson-detail' lesson.id %}" class="btn btn-secondary my-2">View Lesson</a>
-                        <a href="{% url 'delete-lesson' lesson.id %}" class="btn btn-danger my-2">Delete Lesson</a>
-                        <a href="{% url 'edit-lesson' lesson.id %}" class="btn btn-success my-2">Edit Lesson</a>
-                    </div>
-                </li>
+            <li class="list-group-item bg-list-card d-flex justify-content-between align-items-center"> {{lesson.title}}
+                <div>
+                    <a href="{% url 'lesson-detail' lesson.id %}" class="btn btn-secondary my-2">View Lesson</a>
+                    <a href="{% url 'delete-lesson' lesson.id %}" class="btn btn-danger my-2">Delete Lesson</a>
+                    <a href="{% url 'edit-lesson' lesson.id %}" class="btn btn-success my-2">Edit Lesson</a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<!-- User Management Panel (Superuser Only) -->
+{% if request.user.is_superuser %}
+<div class="container p-2 mt-5 big-paper-wrapper shadow-lg">
+    <a href="{% url 'create_user' %}" class="btn btn-success my-4">
+        Create User
+    </a>
+    <div class="d-flex justify-content-between">
+        <div class="container mt-2">
+            <label style="font-style:italic;">Pick a user</label>
+        </div>
+    </div>
+    <div class="container">
+        <ul class="list-group mb-5">
+            {% for user in users %}
+            <li class="list-group-item bg-list-card d-flex justify-content-between align-items-center">
+                {{ user.user.username }} - {{ user.user.email }}
+                <div>
+                    <a href="{% url 'view-user' user.user.id %}" class="btn btn-secondary my-2">View User</a>
+                    <a href="{% url 'delete-user' user.user.id %}" class="btn btn-danger my-2">Delete User</a>
+                    <a href="{% url 'edit-user' user.user.id %}" class="btn btn-success my-2">Edit User</a>
+                </div>
+            </li>
             {% endfor %}
         </ul>
     </div>
 
 </div>
+{% endif %}
 
 
-    
 {% endblock %}
 
 {% block extra_js %}
 {% endblock %}
-

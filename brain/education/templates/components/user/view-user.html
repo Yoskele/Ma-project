@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    View User
+{% endblock %}
+
+{% block meta_description %}
+    View User
+{% endblock %}
+
+{% block meta_keywords %}
+
+{% endblock %}
+
+
+
+
+{% block content_wrapper %}
+{% include 'components/sidebar.html' %}
+
+{% include 'components/search.html' %}
+
+<!-- Category panel -->
+<div class="container p-2 mt-5 big-paper-wrapper shadow-lg">
+    <div class="my-4">
+        <a href="{% url 'dashboard' %}" class="btn btn-info">
+            Back to Dashboard
+        </a>
+    </div>
+    View User
+</div>
+
+
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}
